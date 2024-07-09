@@ -35,11 +35,7 @@ gov_init <- function(interval, alpha = 0.4, alpha_decay = 0.95, alpha_target = 0
     stop("'alpha_target' must be in range (0, alpha]")
   }
   
-  if (.Platform$OS.type == 'unix') {
-    .Call(gov_init_, interval, alpha, alpha_decay, alpha_target)
-  } else {
-    rgov_init(interval, alpha, alpha_decay, alpha_target)
-  }
+  .Call(gov_init_, interval, alpha, alpha_decay, alpha_target)
 }
 
 
@@ -63,12 +59,7 @@ gov_init <- function(interval, alpha = 0.4, alpha_decay = 0.95, alpha_target = 0
 #' @export
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 gov_wait <- function(gov) {
-  if (.Platform$OS.type == 'unix') {
-    invisible(.Call(gov_wait_, gov))
-  } else {
-    # This is windows, and we have to use 'rgov_init()' 
-    gov()
-  }
+  invisible(.Call(gov_wait_, gov))
 }
 
 

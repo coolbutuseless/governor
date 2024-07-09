@@ -42,11 +42,9 @@ to meet the target duration.
 For **linux** and **macOS** systems, the timing functions use POSIX `nanosleep()`
 within C.
 
-For **windows**, the timing functions are in pure R.  These timing functions have more
-overhead than those written in C, and may not be as accurate.
+For **windows**, the timing uses `Sleep()` in C. 
 
-If anyone knows of reliable code for sleeping in windows in increments of 1ms or lower, 
-contributions for this platform would be appreciated.
+If anyone knows of a more reliable method for sleeping in Windows in increments of 1ms or lower, contributions for this platform would be appreciated.
 
 ## Installation
 

@@ -30,12 +30,11 @@ continuously to meet the target duration.
 For **linux** and **macOS** systems, the timing functions use POSIX
 `nanosleep()` within C.
 
-For **windows**, the timing functions are in pure R. These timing
-functions have more overhead than those written in C, and may not be as
-accurate.
+For **windows**, the timing uses `Sleep()` in C.
 
-If anyone knows of reliable code for sleeping in windows in increments
-of 1ms or lower, contributions for this platform would be appreciated.
+If anyone knows of a more reliable method for sleeping in Windows in
+increments of 1ms or lower, contributions for this platform would be
+appreciated.
 
 ## Installation
 
@@ -68,7 +67,7 @@ system.time({
   }
 })
 #>    user  system elapsed 
-#>   0.009   0.001   1.050
+#>   0.010   0.004   1.041
 ```
 
 ## Skipping frames
@@ -110,16 +109,12 @@ system.time({
 #> FALSE 
 #> FALSE 
 #> TRUE 
-#> TRUE 
-#> FALSE 
-#> TRUE 
-#> TRUE 
 #> FALSE 
 #> TRUE 
 #> TRUE 
 #> TRUE 
-#> FALSE 
 #> TRUE 
+#> FALSE 
 #> FALSE 
 #> TRUE 
 #> TRUE 
@@ -136,9 +131,13 @@ system.time({
 #> FALSE 
 #> TRUE 
 #> TRUE 
-#> FALSE
+#> FALSE 
+#> TRUE 
+#> TRUE 
+#> FALSE 
+#> TRUE
 #>    user  system elapsed 
-#>   0.004   0.000   1.185
+#>   0.007   0.000   1.241
 ```
 
 ## Setting timers
@@ -163,15 +162,15 @@ while(TRUE) {
   } 
   counter <- counter + 1L
 }
-#> Short timer fired at count:  3284 
-#> Short timer fired at count:  7740 
-#> Short timer fired at count:  12211 
-#> Short timer fired at count:  16502 
-#> Short timer fired at count:  21009 
-#> Short timer fired at count:  25534 
-#> Short timer fired at count:  29770 
-#> Short timer fired at count:  34145 
-#> Short timer fired at count:  38626 
+#> Short timer fired at count:  1333 
+#> Short timer fired at count:  3100 
+#> Short timer fired at count:  5096 
+#> Short timer fired at count:  7162 
+#> Short timer fired at count:  9182 
+#> Short timer fired at count:  10457 
+#> Short timer fired at count:  11746 
+#> Short timer fired at count:  13785 
+#> Short timer fired at count:  15845 
 #> 
-#> Long  timer fired at count:  43041
+#> Long  timer fired at count:  17578
 ```

@@ -10,33 +10,20 @@
 #include <Rdefines.h>
 
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Windows
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#if defined(_WIN32)
-SEXP gov_init_(SEXP interval_, SEXP alpha_, SEXP alpha_decay_, SEXP alpha_target_) {
-  error("gov_init_() not defined in C for windows");
-  return R_NilValue; 
-}
-SEXP gov_wait_(SEXP gov_) {
-  error("gov_wait_() not defined in C for windows");
-  return R_NilValue;
-}
-
-#else
-
-
+#ifdef _WIN32
+#include <Windows.h>  // For Sleep(ms)
+#endif
 
 
 typedef struct {
-  double interval;
-  double alpha;
-  double alpha_decay;
-  double alpha_target;
-  double sleep_time;
-  double prior_ts;
-  double deficit;
-  int counter;
+  double interval;     // The users specified interval (seconds)
+  double alpha;        // Current learning rate
+  double alpha_decay;  // Decay in learning rate
+  double alpha_target; // Target learning rate in the long term
+  double sleep_time;   // Amount of sleep required
+  double prior_ts;     // timestamp on prior run
+  double deficit;      // Deficit when we can't sleep
+  int counter;         // Frame number
 } gov_struct;
 
 
@@ -156,9 +143,12 @@ SEXP gov_wait_(SEXP gov_) {
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   if (gov->counter == 0) {
     gov->prior_ts = current_ts;
+#ifdef _WIN32
+    Sleep(gov->sleep_time * 1000); // Sleep in ms
+#else
     dbl_to_ts(gov->sleep_time, &sleep);
     nanosleep(&sleep, &rem);
-    
+#endif
     gov->counter++;
     return ScalarLogical(FALSE);
   }
@@ -181,8 +171,12 @@ SEXP gov_wait_(SEXP gov_) {
   // otherwise add time overage to the 'deficit'
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   if (gov->sleep_time > 0) {
+#ifdef _WIN32
+    Sleep(gov->sleep_time * 1000); // Sleep in ms
+#else
     dbl_to_ts(gov->sleep_time, &sleep);
     nanosleep(&sleep, &rem);
+#endif
   } else {
     gov->deficit -= gov->sleep_time;
   }
@@ -208,4 +202,3 @@ SEXP gov_wait_(SEXP gov_) {
 }
 
 
-#endif // non WIN32 platform
