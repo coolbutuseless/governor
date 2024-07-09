@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <unistd.h>
+#include <stdbool.h>
 #include <time.h>
 
 #include <R.h>
@@ -20,6 +21,7 @@ typedef struct {
   double prior_ts;     // timestamp on prior run
   double deficit;      // Deficit when we can't sleep
   int counter;         // Frame number
+  bool valid;
 } gov_struct;
 
 
@@ -71,6 +73,7 @@ SEXP gov_init_(SEXP interval_, SEXP alpha_, SEXP alpha_decay_, SEXP alpha_target
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   // Setup initial state
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  gov->valid      = true;
   gov->interval   = asReal(interval_); // reference value
   gov->sleep_time = asReal(interval_); // Default sleep-time is just the interval
   gov->counter    = 0;                 // How many frames have we processed
@@ -116,6 +119,7 @@ SEXP gov_init_(SEXP interval_, SEXP alpha_, SEXP alpha_decay_, SEXP alpha_target
 SEXP gov_wait_(SEXP gov_) {
   
   gov_struct *gov = unpack_ext_ptr_to_gov_struct(gov_);
+  if (!gov->valid) return ScalarLogical(FALSE);
   
   struct timespec ts, rem, sleep;
   timespec_get(&ts, TIME_UTC);
@@ -177,3 +181,30 @@ SEXP gov_wait_(SEXP gov_) {
 }
 
 
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Disable a governor.  It will still be called, but rturn immediately.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+SEXP gov_disable_(SEXP gov_) {
+  
+  gov_struct *gov = unpack_ext_ptr_to_gov_struct(gov_);
+  gov->valid = false;
+  
+  return R_NilValue;  
+}
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+SEXP gov_enable_(SEXP gov_) {
+  
+  gov_struct *gov = unpack_ext_ptr_to_gov_struct(gov_);
+  gov->valid = true;
+  
+  gov->counter = 0; // How many frames have we processed
+  gov->deficit = 0; // frame deficit for consideration of frame skipping
+  
+  
+  return R_NilValue;  
+}

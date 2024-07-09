@@ -1,14 +1,12 @@
 Package: governor
 Type: Package
-Title: Speed Limiter for Controlling Rate of Execution of Loops
-Version: 0.1.0.9002
-Authors@R: c(
-    person("Mike", "Cheng", role = c("aut", "cre", 'cph'), email = "mikefc@coolbutuseless.com")
-    )
+Title: Speed Limiter to Control Rate of Execution of Loops
+Version: 0.1.0.9003
+Authors@R: 
+    person("Mike", "Cheng", , "mikefc@coolbutuseless.com", role = c("aut", "cre", "cph"))
 Maintainer: Mike Cheng <mikefc@coolbutuseless.com>
-Description: Speed limiter for controlling rate of execution of loops.  Also 
-    includes functions for setting time-based alarms.
+Description: Speed limiter for controlling rate of execution of loops.
+    Also includes functions for setting time-based alarms.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
 RoxygenNote: 7.3.1

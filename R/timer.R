@@ -71,24 +71,55 @@ timer_check <- function(timer) {
 }
 
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Disable/enable a timer
+#' 
+#' When disabled a timer always immediately returns \code{FALSE}
+#' 
+#' @inheritParams timer_check
+#' @return None.
+#' @examples
+#' timer <- timer_init(1)
+#' timer_disable(timer)
+#' timer_enable(timer)
+#' @export
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+timer_enable <- function(timer) {
+  invisible(
+    .Call(timer_enable_, timer)
+  )
+}
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' @rdname timer_enable
+#' @export
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+timer_disable <- function(timer) {
+  invisible(
+    .Call(timer_disable_, timer)
+  )
+}
+
+
 
 if (FALSE) {
-  long_timer  <- ctimer_init(1)
-  short_timer <- ctimer_init(0.1)
+  long_timer  <- timer_init(1)
+  short_timer <- timer_init(0.1)
   counter <- 0L
   while(TRUE) {
-    if (ctimer_check(long_timer)) {
+    if (timer_check(long_timer)) {
       message("\nLong  timer fired at count: ", counter)
       break;
     } 
-    if (ctimer_check(short_timer)) {
+    if (timer_check(short_timer)) {
       message("Short timer fired at count: ", counter)
     } 
     counter <- counter + 1L
   }
   
-  bench::mark(ctimer_check(long_timer))
-  bench::mark(ctimer_check(short_timer))
+  bench::mark(timer_check(short_timer))
+  timer_disable(short_timer)
+  bench::mark(timer_check(short_timer))
 }
 
 

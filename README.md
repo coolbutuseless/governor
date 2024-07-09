@@ -22,8 +22,13 @@ continuously to meet the target duration.
 
 - `gov_init()`, `gov_wait()` for limiting the execution speed of a
   for-loop, while-loop or repeated function call.
+- `gov_disable()`, `gov_enable()` for disabling/re-enabling a governor.
+  When a governor is disabled, `gov_wait()` always returns immediately
+  without waiting.
 - `timer_init()`, `timer_check()` for setting alarms such that
-  `time_check()` will return `TRUE` after the given time has elapsed
+  `timer_check()` will return `TRUE` after the given time has elapsed
+- `timer_disable()`, `timer_enable()` for disabling/re-enabling a timer.
+  When a timer is disabled it always immediately returns `FALSE`
 
 ## Installation
 
@@ -56,7 +61,7 @@ system.time({
   }
 })
 #>    user  system elapsed 
-#>   0.012   0.000   1.040
+#>   0.009   0.001   1.048
 ```
 
 ## Skipping frames
@@ -98,23 +103,18 @@ system.time({
 #> FALSE 
 #> FALSE 
 #> TRUE 
-#> FALSE 
 #> TRUE 
-#> TRUE 
-#> TRUE 
-#> TRUE 
-#> FALSE 
 #> FALSE 
 #> TRUE 
 #> TRUE 
 #> TRUE 
 #> FALSE 
 #> TRUE 
-#> TRUE 
 #> FALSE 
 #> TRUE 
 #> TRUE 
 #> FALSE 
+#> TRUE 
 #> TRUE 
 #> TRUE 
 #> FALSE 
@@ -124,9 +124,14 @@ system.time({
 #> TRUE 
 #> TRUE 
 #> FALSE 
-#> TRUE
+#> TRUE 
+#> TRUE 
+#> TRUE 
+#> FALSE 
+#> TRUE 
+#> FALSE
 #>    user  system elapsed 
-#>   0.004   0.000   1.238
+#>   0.004   0.001   1.180
 ```
 
 ## Setting timers
@@ -151,15 +156,15 @@ while(TRUE) {
   } 
   counter <- counter + 1L
 }
-#> Short timer fired at count:  97000 
-#> Short timer fired at count:  213149 
-#> Short timer fired at count:  329055 
-#> Short timer fired at count:  445058 
-#> Short timer fired at count:  561283 
-#> Short timer fired at count:  676199 
-#> Short timer fired at count:  791301 
-#> Short timer fired at count:  907952 
-#> Short timer fired at count:  1014527 
+#> Short timer fired at count:  174441 
+#> Short timer fired at count:  389944 
+#> Short timer fired at count:  611559 
+#> Short timer fired at count:  840023 
+#> Short timer fired at count:  1066931 
+#> Short timer fired at count:  1299095 
+#> Short timer fired at count:  1523412 
+#> Short timer fired at count:  1748071 
+#> Short timer fired at count:  1978098 
 #> 
-#> Long  timer fired at count:  1130692
+#> Long  timer fired at count:  2207301
 ```

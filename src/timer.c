@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <unistd.h>
+#include <stdbool.h>
 #include <time.h>
 
 #include <R.h>
@@ -18,6 +19,7 @@ typedef struct {
   double alarm;
   double interval;
   unsigned int mode;
+  bool valid;
 } timer_struct;
 
 
@@ -72,6 +74,7 @@ SEXP timer_init_(SEXP interval_, SEXP reset_mode_) {
     timer->mode = TIMER_MODE_CREATED;
   }
   
+  timer->valid = true;
   
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   // Setup initial state
@@ -119,6 +122,7 @@ SEXP timer_init_(SEXP interval_, SEXP reset_mode_) {
 SEXP timer_check_(SEXP timer_) {
   
   timer_struct *timer = unpack_ext_ptr_to_timer_struct(timer_);
+  if (!timer->valid) return ScalarLogical(FALSE);
   
   struct timespec ts;
   timespec_get(&ts, TIME_UTC);
@@ -138,3 +142,31 @@ SEXP timer_check_(SEXP timer_) {
 }
 
 
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Disable a timerernor.  It will still be called, but rturn immediately.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+SEXP timer_disable_(SEXP timer_) {
+  
+  timer_struct *timer = unpack_ext_ptr_to_timer_struct(timer_);
+  timer->valid = false;
+  
+  return R_NilValue;  
+}
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+SEXP timer_enable_(SEXP timer_) {
+  
+  timer_struct *timer = unpack_ext_ptr_to_timer_struct(timer_);
+  timer->valid = true;
+  
+  struct timespec ts;
+  timespec_get(&ts, TIME_UTC);
+  timer->alarm = ts_to_dbl(&ts) + timer->interval;
+  
+  return R_NilValue;  
+}

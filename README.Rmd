@@ -34,9 +34,12 @@ to meet the target duration.
 
 * `gov_init()`, `gov_wait()` for limiting the execution speed of a for-loop, 
   while-loop or repeated function call.
+* `gov_disable()`, `gov_enable()` for disabling/re-enabling a governor.  When 
+  a governor is disabled, `gov_wait()` always returns immediately without waiting.
 * `timer_init()`, `timer_check()` for setting alarms such that
-  `time_check()` will return `TRUE` after the given time has elapsed
-
+  `timer_check()` will return `TRUE` after the given time has elapsed
+* `timer_disable()`, `timer_enable()` for disabling/re-enabling a timer.  When 
+  a timer is disabled it always immediately returns `FALSE`
 
 ## Installation
 

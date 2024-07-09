@@ -62,22 +62,52 @@ gov_wait <- function(gov) {
   invisible(.Call(gov_wait_, gov))
 }
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Disable/enable a governor
+#' 
+#' When disabled a governor always returns immediately without any waiting
+#' 
+#' @inheritParams gov_wait
+#' @return None.
+#' @examples
+#' gov <- gov_init(1/30)
+#' gov_disable(gov)
+#' gov_enable(gov)
+#' @export
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+gov_enable <- function(gov) {
+  invisible(
+    .Call(gov_enable_, gov)
+  )
+}
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' @rdname gov_enable
+#' @export
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+gov_disable <- function(gov) {
+  invisible(
+    .Call(gov_disable_, gov)
+  )
+}
 
 
 if (FALSE) {
-  gov <- gov_init(1/10); gov_wait(gov); gov_wait(gov)
-  # gov_wait(gov) |> bench::mark()
 
   gov <- gov_init(1/30); 
   skip <- FALSE
   system.time({
     for (i in 1:60) {
       if (!skip) {
-        Sys.sleep(0.1)
+        Sys.sleep(0.01)
       }
       skip <- gov_wait(gov)
     }
   })
+  
+  bench::mark(gov_wait(gov))
+  gov_disable(gov)
+  bench::mark(gov_wait(gov))
   
 }
 
