@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 ![](https://img.shields.io/badge/cool-useless-green.svg)
-[![R-CMD-check](https://github.com/coolbutuseless/governor-dev/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/coolbutuseless/governor-dev/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/coolbutuseless/governor/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/coolbutuseless/governor/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 `{governor}` is a
@@ -61,7 +61,7 @@ system.time({
   }
 })
 #>    user  system elapsed 
-#>   0.009   0.001   1.048
+#>   0.008   0.001   1.052
 ```
 
 ## Skipping frames
@@ -73,7 +73,7 @@ When the work in the loop is slow, then `{governor}` can advise that the
 work for the next frame be skipped.
 
 In this example, we want the loop to run at 30 frames per second
-(i.e. an interval of 0.333 seconds), but the work itself takes 0.04
+(i.e. an interval of 0.033 seconds), but the work itself takes 0.04
 seconds. The return value of `gov_wait()` is a logical value indicating
 whether it is recommended that the next frame is skipped in order to
 achieve the desired loop interval.
@@ -107,31 +107,31 @@ system.time({
 #> FALSE 
 #> TRUE 
 #> TRUE 
-#> TRUE 
-#> FALSE 
-#> TRUE 
-#> FALSE 
-#> TRUE 
-#> TRUE 
 #> FALSE 
 #> TRUE 
 #> TRUE 
 #> TRUE 
 #> FALSE 
 #> TRUE 
-#> TRUE 
-#> FALSE 
-#> TRUE 
-#> TRUE 
 #> FALSE 
 #> TRUE 
 #> TRUE 
 #> TRUE 
 #> FALSE 
+#> TRUE 
+#> TRUE 
+#> FALSE 
+#> TRUE 
+#> FALSE 
+#> TRUE 
+#> TRUE 
+#> TRUE 
+#> FALSE 
+#> TRUE 
 #> TRUE 
 #> FALSE
 #>    user  system elapsed 
-#>   0.004   0.001   1.180
+#>   0.004   0.001   1.181
 ```
 
 ## Setting timers
@@ -156,15 +156,15 @@ while(TRUE) {
   } 
   counter <- counter + 1L
 }
-#> Short timer fired at count:  174441 
-#> Short timer fired at count:  389944 
-#> Short timer fired at count:  611559 
-#> Short timer fired at count:  840023 
-#> Short timer fired at count:  1066931 
-#> Short timer fired at count:  1299095 
-#> Short timer fired at count:  1523412 
-#> Short timer fired at count:  1748071 
-#> Short timer fired at count:  1978098 
+#> Short timer fired at count:  162574 
+#> Short timer fired at count:  390541 
+#> Short timer fired at count:  619030 
+#> Short timer fired at count:  851084 
+#> Short timer fired at count:  1080392 
+#> Short timer fired at count:  1304106 
+#> Short timer fired at count:  1530615 
+#> Short timer fired at count:  1754721 
+#> Short timer fired at count:  1984315 
 #> 
-#> Long  timer fired at count:  2207301
+#> Long  timer fired at count:  2211146
 ```

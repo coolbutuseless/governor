@@ -19,7 +19,7 @@ library(governor)
 
 <!-- badges: start -->
 ![](https://img.shields.io/badge/cool-useless-green.svg)
-[![R-CMD-check](https://github.com/coolbutuseless/governor-dev/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/coolbutuseless/governor-dev/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/coolbutuseless/governor/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/coolbutuseless/governor/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 `{governor}` is a [governor](https://en.wikipedia.org/wiki/Governor_(device)) (or *speed limiter*)
@@ -81,7 +81,7 @@ a longer amount of time.
 When the work in the loop is slow, then `{governor}` can advise that the work 
 for the next frame be skipped.  
 
-In this example, we want the loop to run at 30 frames per second (i.e. an interval of 0.333 seconds), but 
+In this example, we want the loop to run at 30 frames per second (i.e. an interval of 0.033 seconds), but 
 the work itself takes 0.04 seconds.   The return value of `gov_wait()` is a
 logical value indicating whether it is recommended that the next frame is skipped in 
 order to achieve the desired loop interval.
