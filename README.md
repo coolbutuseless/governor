@@ -56,7 +56,7 @@ system.time({
   }
 })
 #>    user  system elapsed 
-#>   0.010   0.004   1.041
+#>   0.012   0.000   1.040
 ```
 
 ## Skipping frames
@@ -126,7 +126,7 @@ system.time({
 #> FALSE 
 #> TRUE
 #>    user  system elapsed 
-#>   0.007   0.000   1.241
+#>   0.004   0.000   1.238
 ```
 
 ## Setting timers
@@ -151,15 +151,15 @@ while(TRUE) {
   } 
   counter <- counter + 1L
 }
-#> Short timer fired at count:  1333 
-#> Short timer fired at count:  3100 
-#> Short timer fired at count:  5096 
-#> Short timer fired at count:  7162 
-#> Short timer fired at count:  9182 
-#> Short timer fired at count:  10457 
-#> Short timer fired at count:  11746 
-#> Short timer fired at count:  13785 
-#> Short timer fired at count:  15845 
+#> Short timer fired at count:  97000 
+#> Short timer fired at count:  213149 
+#> Short timer fired at count:  329055 
+#> Short timer fired at count:  445058 
+#> Short timer fired at count:  561283 
+#> Short timer fired at count:  676199 
+#> Short timer fired at count:  791301 
+#> Short timer fired at count:  907952 
+#> Short timer fired at count:  1014527 
 #> 
-#> Long  timer fired at count:  17578
+#> Long  timer fired at count:  1130692
 ```

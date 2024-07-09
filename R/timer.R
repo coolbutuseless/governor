@@ -35,27 +35,7 @@
 #' @export
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 timer_init <- function(duration, reset_mode = 'checked') {
-  
-  created <- Sys.time()
-  target  <- created + duration
-  count   <- 0L
-  
-  f <- function() {
-    if (Sys.time() > target) {
-      count <<- count + 1L
-      if (reset_mode == 'checked') {
-        target <<- Sys.time() + duration
-      } else {
-        target <<- created + count * duration
-      }
-      TRUE
-    } else {
-      FALSE
-    }
-  }
-  
-  
-  f
+  .Call(timer_init_, duration, reset_mode)
 }
 
 
@@ -87,25 +67,28 @@ timer_init <- function(duration, reset_mode = 'checked') {
 #' @export
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 timer_check <- function(timer) {
-  timer()
+  .Call(timer_check_, timer)
 }
 
 
 
 if (FALSE) {
-  long_timer <- timer_init(1)
-  short_timer <- timer_init(0.1)
+  long_timer  <- ctimer_init(1)
+  short_timer <- ctimer_init(0.1)
   counter <- 0L
   while(TRUE) {
-    if (timer_check(long_timer)) {
+    if (ctimer_check(long_timer)) {
       message("\nLong  timer fired at count: ", counter)
       break;
     } 
-    if (timer_check(short_timer)) {
+    if (ctimer_check(short_timer)) {
       message("Short timer fired at count: ", counter)
     } 
     counter <- counter + 1L
   }
+  
+  bench::mark(ctimer_check(long_timer))
+  bench::mark(ctimer_check(short_timer))
 }
 
 

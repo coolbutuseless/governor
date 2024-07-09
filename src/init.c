@@ -6,10 +6,16 @@
 extern SEXP gov_init_(SEXP interval_, SEXP alpha_, SEXP alpha_decay_, SEXP alpha_target_);
 extern SEXP gov_wait_(SEXP gov_);
 
+extern SEXP timer_init_(SEXP interval_, SEXP reset_mode_);
+extern SEXP timer_check_(SEXP timer_);
+
 static const R_CallMethodDef CEntries[] = {
   
   {"gov_init_", (DL_FUNC) &gov_init_, 4},
   {"gov_wait_", (DL_FUNC) &gov_wait_, 1},
+  
+  {"timer_init_" , (DL_FUNC) &timer_init_ , 2},
+  {"timer_check_", (DL_FUNC) &timer_check_, 1},
   {NULL , NULL, 0}
 };
 
