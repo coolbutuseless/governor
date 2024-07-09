@@ -1,7 +1,7 @@
 Package: governor
 Type: Package
 Title: Speed Limiter for Controlling Rate of Execution of Loops
-Version: 0.1.0.9000
+Version: 0.1.0.9001
 Authors@R: c(
     person("Mike", "Cheng", role = c("aut", "cre", 'cph'), email = "mikefc@coolbutuseless.com")
     )
