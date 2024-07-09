@@ -25,17 +25,6 @@ continuously to meet the target duration.
 - `timer_init()`, `timer_check()` for setting alarms such that
   `time_check()` will return `TRUE` after the given time has elapsed
 
-### Platform-specific notes
-
-For **linux** and **macOS** systems, the timing functions use POSIX
-`nanosleep()` within C.
-
-For **windows**, the timing uses `Sleep()` in C.
-
-If anyone knows of a more reliable method for sleeping in Windows in
-increments of 1ms or lower, contributions for this platform would be
-appreciated.
-
 ## Installation
 
 You can install from
