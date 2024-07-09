@@ -17,14 +17,14 @@ If 'created', then the time is reset to the next increment of \code{N * duration
 after the timestamp when the timer was created}
 }
 \value{
-a 'timer' object to used with \code{timer_check()}
+a \code{timer} object to used with \code{timer_check()}
 }
 \description{
 The timer will automatically reset any time it is checked (via \code{check_timer()})
 \emph{and} it returns \code{TRUE}.
 }
 \examples{
-# Run two timers in a tight while loop
+# Run two timers in a tight 'while' loop
 # The short timer should trigger every 0.1 seconds
 # The long timer will trigger after 1 second
 # Note that the timers will reset every time they trigger (after returning TRUE)

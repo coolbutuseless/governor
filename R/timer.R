@@ -13,9 +13,9 @@
 #'        seconds after \code{timer_check()} last returned \code{TRUE}.
 #'        If 'created', then the time is reset to the next increment of \code{N * duration}
 #'        after the timestamp when the timer was created
-#' @return a 'timer' object to used with \code{timer_check()}
+#' @return a \code{timer} object to used with \code{timer_check()}
 #' @examples
-#' # Run two timers in a tight while loop
+#' # Run two timers in a tight 'while' loop
 #' # The short timer should trigger every 0.1 seconds
 #' # The long timer will trigger after 1 second
 #' # Note that the timers will reset every time they trigger (after returning TRUE)
@@ -99,28 +99,4 @@ timer_disable <- function(timer) {
     .Call(timer_disable_, timer)
   )
 }
-
-
-
-if (FALSE) {
-  long_timer  <- timer_init(1)
-  short_timer <- timer_init(0.1)
-  counter <- 0L
-  while(TRUE) {
-    if (timer_check(long_timer)) {
-      message("\nLong  timer fired at count: ", counter)
-      break;
-    } 
-    if (timer_check(short_timer)) {
-      message("Short timer fired at count: ", counter)
-    } 
-    counter <- counter + 1L
-  }
-  
-  bench::mark(timer_check(short_timer))
-  timer_disable(short_timer)
-  bench::mark(timer_check(short_timer))
-}
-
-
 

@@ -1,7 +1,7 @@
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' Initialise a governor to control the speed of a for-loop
+#' Initialize a governor to control the speed of a loop
 #' 
 #' @param interval desired interval in seconds E.g. \code{interval = 1.5} sets the
 #'        time-per-loop to 1.5 seconds.  E.g. \code{interval = 1/30} sets
@@ -9,10 +9,11 @@
 #' @param alpha initial learning rate used to adjust wait time. Default: 0.4
 #' @param alpha_decay rate at which alpha decays. Default: 0.95 i.e. 5% decrease
 #'        each iteration
-#' @param alpha_target the baseline alpha to reach when running. default: 0.05
+#' @param alpha_target the baseline alpha to reach when running long term. default: 0.05
 #' @return gov object to be used with \code{gov_wait()}
 #' @examples
-#' # This loop should take approx 1 second
+#' # This loop should take approx 1 second as the governor will limit
+#' # the loop to run every thirtieth of a second.
 #' gov <- gov_init(1/30)
 #' system.time({
 #'   for (i in 1:30) {
@@ -62,6 +63,7 @@ gov_wait <- function(gov) {
   invisible(.Call(gov_wait_, gov))
 }
 
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' Disable/enable a governor
 #' 
@@ -81,6 +83,7 @@ gov_enable <- function(gov) {
   )
 }
 
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @rdname gov_enable
 #' @export
@@ -90,51 +93,5 @@ gov_disable <- function(gov) {
     .Call(gov_disable_, gov)
   )
 }
-
-
-if (FALSE) {
-
-  gov <- gov_init(1/30); 
-  skip <- FALSE
-  system.time({
-    for (i in 1:60) {
-      if (!skip) {
-        Sys.sleep(0.01)
-      }
-      skip <- gov_wait(gov)
-    }
-  })
-  
-  bench::mark(gov_wait(gov))
-  gov_disable(gov)
-  bench::mark(gov_wait(gov))
-  
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/governor.R
 \name{gov_init}
 \alias{gov_init}
-\title{Initialise a governor to control the speed of a for-loop}
+\title{Initialize a governor to control the speed of a loop}
 \usage{
 gov_init(interval, alpha = 0.4, alpha_decay = 0.95, alpha_target = 0.05)
 }
@@ -16,16 +16,17 @@ the loop to run at 30 times per second}
 \item{alpha_decay}{rate at which alpha decays. Default: 0.95 i.e. 5% decrease
 each iteration}
 
-\item{alpha_target}{the baseline alpha to reach when running. default: 0.05}
+\item{alpha_target}{the baseline alpha to reach when running long term. default: 0.05}
 }
 \value{
 gov object to be used with \code{gov_wait()}
 }
 \description{
-Initialise a governor to control the speed of a for-loop
+Initialize a governor to control the speed of a loop
 }
 \examples{
-# This loop should take approx 1 second
+# This loop should take approx 1 second as the governor will limit
+# the loop to run every thirtieth of a second.
 gov <- gov_init(1/30)
 system.time({
   for (i in 1:30) {
