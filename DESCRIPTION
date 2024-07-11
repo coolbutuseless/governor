@@ -1,12 +1,18 @@
 Package: governor
 Type: Package
 Title: Speed Limiter to Control Rate of Execution of Loops
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: 
     person("Mike", "Cheng", , "mikefc@coolbutuseless.com", role = c("aut", "cre", "cph"))
 Maintainer: Mike Cheng <mikefc@coolbutuseless.com>
-Description: Speed limiter for controlling rate of execution of loops.
-    Also includes functions for setting time-based alarms.
+Description: Speed limiter for controlling rate of execution of loops.   It 
+    can be necessary to limit the rate of execution of a loop or repeated function
+    call e.g. to show or gather data only at particular intervals.
+    This package includes two methods for limiting this execution rate; speed governors
+    and timers.  A speed governor will insert pauses during execution to meet
+    a user-specified loop time.  Timers are alarm clocks which will indicate 
+    whether a certain has passed.  These mechanisms are implemented in 'C'
+    to minimize processing overhead.
 License: MIT + file LICENSE
 Encoding: UTF-8
 URL: https://github.com/coolbutuseless/governor
