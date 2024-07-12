@@ -1,3 +1,8 @@
+# governor 0.1.2.9000 
+
+* Fix 'Description' text to not start with the 'Title' text. CRAN notified me
+  of this redundancy.
+
 # governor 0.1.2  2024-07-11
 
 * Fixes for CRAN
