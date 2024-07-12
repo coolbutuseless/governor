@@ -19,6 +19,7 @@ library(governor)
 
 <!-- badges: start -->
 ![](https://img.shields.io/badge/cool-useless-green.svg)
+[![CRAN](http://www.r-pkg.org/badges/version/governor)](https://cran.r-project.org/package=governor)
 [![R-CMD-check](https://github.com/coolbutuseless/governor/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/coolbutuseless/governor/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
@@ -43,7 +44,14 @@ to meet the target duration.
 
 ## Installation
 
-You can install from [GitHub](https://github.com/coolbutuseless/governor) with:
+Install from CRAN:
+
+```{r eval = FALSE}
+install.packages('governor')
+```
+
+
+You can also the latest development version from [GitHub](https://github.com/coolbutuseless/governor) with:
 
 ``` r
 # install.packages('remotes')
