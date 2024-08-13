@@ -21,5 +21,5 @@ double ts_to_dbl(struct timespec *ts) {
 
 void dbl_to_ts(double time, struct timespec *ts) {
   ts->tv_sec  = (time_t)floor(time);
-  ts->tv_nsec = (long)(1e9 * time - floor(time));
+  ts->tv_nsec = (long)(1e9 * (time - floor(time)));
 } 
