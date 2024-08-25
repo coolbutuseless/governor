@@ -1,4 +1,4 @@
-# governor 0.1.2.9001
+# governor 0.1.3  2024-08-25
 
 * Fix 'Description' text to not start with the 'Title' text. CRAN notified me
   of this redundancy.
