@@ -33,18 +33,25 @@ continuously to meet the target duration.
 
 ## Installation
 
-Install from CRAN:
+This package can be installed from CRAN
 
 ``` r
 install.packages('governor')
 ```
 
-You can also the latest development version from
+You can install the latest development version from
 [GitHub](https://github.com/coolbutuseless/governor) with:
 
 ``` r
-# install.packages('remotes')
+# install.package('remotes')
 remotes::install_github('coolbutuseless/governor')
+```
+
+Pre-built source/binary versions can also be installed from
+[R-universe](https://r-universe.dev)
+
+``` r
+install.packages('governor', repos = c('https://coolbutuseless.r-universe.dev', 'https://cloud.r-project.org'))
 ```
 
 ## Running a loop at a rate of 30 times/second
@@ -68,7 +75,7 @@ system.time({
   }
 })
 #>    user  system elapsed 
-#>   0.009   0.001   1.056
+#>   0.010   0.001   1.042
 ```
 
 ## Skipping frames
@@ -120,14 +127,14 @@ system.time({
 #> TRUE 
 #> FALSE 
 #> TRUE 
-#> FALSE 
-#> TRUE 
-#> TRUE 
 #> TRUE 
 #> FALSE 
 #> TRUE 
 #> FALSE 
 #> TRUE 
+#> TRUE 
+#> TRUE 
+#> FALSE 
 #> TRUE 
 #> TRUE 
 #> FALSE 
@@ -138,7 +145,7 @@ system.time({
 #> TRUE 
 #> TRUE
 #>    user  system elapsed 
-#>   0.004   0.000   1.182
+#>   0.005   0.004   1.185
 ```
 
 ## Setting timers
@@ -163,15 +170,15 @@ while(TRUE) {
   } 
   counter <- counter + 1L
 }
-#> Short timer fired at count:  158395 
-#> Short timer fired at count:  386234 
-#> Short timer fired at count:  617275 
-#> Short timer fired at count:  846176 
-#> Short timer fired at count:  1074647 
-#> Short timer fired at count:  1305754 
-#> Short timer fired at count:  1534745 
-#> Short timer fired at count:  1764681 
-#> Short timer fired at count:  1994792 
+#> Short timer fired at count:  158316 
+#> Short timer fired at count:  379153 
+#> Short timer fired at count:  601527 
+#> Short timer fired at count:  823985 
+#> Short timer fired at count:  1041951 
+#> Short timer fired at count:  1259072 
+#> Short timer fired at count:  1479499 
+#> Short timer fired at count:  1702650 
+#> Short timer fired at count:  1923189 
 #> 
-#> Long  timer fired at count:  2214877
+#> Long  timer fired at count:  2144270
 ```

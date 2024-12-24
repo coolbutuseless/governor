@@ -44,18 +44,25 @@ to meet the target duration.
 
 ## Installation
 
-Install from CRAN:
+This package can be installed from CRAN
 
-```{r eval = FALSE}
+``` r
 install.packages('governor')
 ```
 
-
-You can also the latest development version from [GitHub](https://github.com/coolbutuseless/governor) with:
+You can install the latest development version from
+[GitHub](https://github.com/coolbutuseless/governor) with:
 
 ``` r
-# install.packages('remotes')
+# install.package('remotes')
 remotes::install_github('coolbutuseless/governor')
+```
+
+Pre-built source/binary versions can also be installed from
+[R-universe](https://r-universe.dev)
+
+``` r
+install.packages('governor', repos = c('https://coolbutuseless.r-universe.dev', 'https://cloud.r-project.org'))
 ```
 
 ## Running a loop at a rate of 30 times/second
